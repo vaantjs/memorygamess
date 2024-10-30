@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Memory</title>
+    <style>
+        body {
+            background-color: #a8d0e6;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-top: 20%;
+        }
+        .container {
+            display: none; /* Verberg de containers standaard */
+            margin-top: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+        #numberToRemember {
+            font-size: 3em; /* Grotere tekst voor het nummer */
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        button {
+            font-size: 1em;
+            padding: 10px 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #f0f0f0;
+        }
+        .result-box {
+            display: none; /* Initially hidden */
+            border: 1px solid #ff9999;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #ffffff;
+            box-shadow: 3px 3px 5px #888888;
+        }
+        .result-box p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .result-box p span {
+            font-weight: bold;
+        }
+        .restart-button {
+            display: none; /* Initially hidden */
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: 1px solid #ff9999;
+            background-color: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .restart-button:hover {
+            background-color: #ff9999;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Number Memory</h1>
+
+    <!-- Introductie scherm -->
+    <div class="container" id="intro">
+        <p>A number will show on the screen for a short time.<br>
+        Type in the correct number to progress to the next level, which will add 1 digit to the number.</p>
+        <button onclick="startGame()">Start Game</button>
+    </div>
+
+    <!-- Nummer scherm -->
+    <div class="container" id="numberScreen">
+        <p id="numberToRemember"></p>
+    </div>
+
+    <!-- Invoerscherm -->
+    <div class="container" id="inputScreen">
+        <p>What was the number shown?</p>
+        <input type="text" id="numberInput" placeholder="Enter your answer">
+        <button onclick="checkAnswer()">Submit</button>
+        <p id="result"></p>
+        <p id="timeTaken"></p>
+        <p id="correctAnswers"></p>
+    </div>
+
+    <!-- Resultaten scherm -->
+    <div class="result-box" id="resultBox">
+        <p>Your Answer: <span id="your-answer"></span></p>
+        <p>Correct Answer: <span id="correct-answer"></span></p>
+        <a href="#" class="restart-button" id="restart-button" onclick="restartGame()">Restart Game</a>
+    </div>
+
+    <script>
+        let currentLevel = 1;
+        let numberToRemember;
+        let startTime;
+        let correctAnswers = 0;
+
+        // Toon het introductiescherm
+        document.getElementById('intro').style.display = 'block';
+
+        function startGame() {
+            document.getElementById('intro').style.display = 'none';
+            showNumber();
+        }
+
+        function showNumber() {
+            // Genereer een nummer met het aantal cijfers gelijk aan het huidige niveau
+            numberToRemember = Math.floor(Math.random() * Math.pow(10, currentLevel)).toString();
+            document.getElementById('numberToRemember').innerText = numberToRemember;
+            document.getElementById('
